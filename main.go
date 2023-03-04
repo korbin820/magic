@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"magic/pkg/cronjob"
 	"magic/pkg/handler"
 	_ "net/http/pprof"
 
@@ -11,7 +12,7 @@ import (
 
 func main() {
 
-	// go corn.UpdateProjectTags()
+	go cronjob.Demo()
 
 	fmt.Println("=========================== Application is starting ================== ")
 	app.UseBizServer(server.Config{
