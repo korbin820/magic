@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"magic/app/server"
-	util "magic/utils"
+	util "magic/basic/utils"
 
 	jsoniter "github.com/json-iterator/go"
 )
