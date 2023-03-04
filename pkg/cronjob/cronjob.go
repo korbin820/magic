@@ -12,7 +12,7 @@ import (
 func Demo() {
 	c := cron.New()
 
-	// 每5分钟执行(格式: 秒 分 时
+	// 每5秒钟执行(格式: 秒 分 时
 	spec := "*/5 * * * * ?"
 	c.AddFunc(spec, func() {
 		logs.DefaultConsoleLog.Info("cronjob Demo", "开始执行!")
