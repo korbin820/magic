@@ -1,7 +1,7 @@
 package redis
 
 import (
-	util "service-tag/utils"
+	util "magic/utils"
 	"time"
 )
 

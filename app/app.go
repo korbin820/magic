@@ -1,8 +1,8 @@
 package app
 
 import (
-	"service-tag/app/server"
-	"service-tag/app/server/biz"
+	"magic/app/server"
+	"magic/app/server/biz"
 )
 
 func UseWebServer(config server.Config, handler server.Handler) server.Server {

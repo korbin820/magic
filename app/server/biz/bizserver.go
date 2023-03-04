@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"service-tag/app/server"
-	util "service-tag/utils"
+	"magic/app/server"
+	util "magic/utils"
 
 	jsoniter "github.com/json-iterator/go"
 )

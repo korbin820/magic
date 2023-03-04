@@ -1,4 +1,4 @@
-module service-tag
+module magic
 
 go 1.14
 

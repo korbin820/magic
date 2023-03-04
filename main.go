@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"magic/pkg/handler"
 	_ "net/http/pprof"
-	"service-tag/pkg/handler"
 
-	"service-tag/app"
-	"service-tag/app/server"
+	"magic/app"
+	"magic/app/server"
 )
 
 func main() {
