@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"magic/pkg/cronjob"
 	"magic/pkg/handler"
+	"magic/pkg/zookeeper"
 	_ "net/http/pprof"
 
 	"magic/app"
@@ -13,6 +14,8 @@ import (
 func main() {
 
 	go cronjob.Demo()
+
+	fmt.Println(zookeeper.NewManager().Get("/test"))
 
 	fmt.Println("=========================== Application is starting ================== ")
 	app.UseBizServer(server.Config{
