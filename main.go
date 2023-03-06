@@ -15,7 +15,7 @@ func main() {
 
 	go cronjob.Demo()
 
-	fmt.Println(zookeeper.NewManager().Get("/test"))
+	fmt.Println(zookeeper.NewManager().Get("/config/test"))
 
 	fmt.Println("=========================== Application is starting ================== ")
 	app.UseBizServer(server.Config{

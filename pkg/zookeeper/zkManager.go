@@ -168,14 +168,7 @@ func (m *Manager) Get(configPath string) interface{} {
 		}
 	}
 	v, _ := m.configMap.Load(configPath)
-	//if nil == v {
-	//	return ""
-	//}
-	//s, err := convert2String(v)
-	//
-	//if err != nil {
-	//	log.Println("configPath:", configPath, err.Error())
-	//}
+	
 	return v
 }
 
