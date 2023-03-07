@@ -8,9 +8,10 @@ import (
 	"sync"
 	"time"
 
+	util "magic/basic/utils"
+
 	"github.com/pkg/errors"
 	"github.com/samuel/go-zookeeper/zk"
-	util "magic/basic/utils"
 )
 
 var Paths = "config,lds,cds,connection,service"
@@ -31,16 +32,21 @@ var once sync.Once
 var zoo *ZK
 
 func NewManager() *Manager {
+	// 单例模式，只执行一次
 	once.Do(func() {
+		// 初始化manager对象
 		manager = &Manager{}
 		manager.CdsChangedEvent = make(chan ChangedEvent)
 		manager.LdsChangedEvent = make(chan ChangedEvent)
 		manager.InternalUsersChangedEvent = make(chan ChangedEvent)
+
+		// 初始化ZK对象
 		zoo = newZK(strings.Split(Value("Zookeeper"), ","), func(event zk.Event) {
 			switch event.State {
 			case zk.StateExpired:
 				{
 					log.Println("StateExpired")
+					// 把paths内的路径节点数据缓存到manager.configMap，遍历paths下所有节点的一级子目录，且只向它们添加EventNodeDataChanged这一类watch
 					setAll()
 					log.Println("setAll /")
 				}
@@ -48,6 +54,7 @@ func NewManager() *Manager {
 			switch event.Type {
 			case zk.EventNodeDataChanged:
 				{
+					// 根据event.Path创建监听，并获取最新value缓存到manager.configMap
 					manager.update(event.Path)
 					log.Printf("EventNodeDataChanged: %s\n", event.Path)
 					if strings.HasPrefix(event.Path, "/cds/") {
@@ -57,7 +64,7 @@ func NewManager() *Manager {
 									log.Println(err)
 								}
 							}()
-
+							// 如果event.Path包含"/lds/"，则发送数据到manager.CdsChangedEvent的管道
 							manager.CdsChangedEvent <- ChangedEvent{
 								Path: event.Path,
 							}
@@ -168,7 +175,7 @@ func (m *Manager) Get(configPath string) interface{} {
 		}
 	}
 	v, _ := m.configMap.Load(configPath)
-	
+
 	return v
 }
 
@@ -215,6 +222,11 @@ func GetZkCdsData() map[string]*EDS {
 		mapResult[sPath] = value
 	}
 	return mapResult
+}
+
+func Get123(path string) string {
+	v, _, _ := zoo.GetW("/test")
+	return v
 }
 
 func initMap(path string) {

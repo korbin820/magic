@@ -1,10 +1,11 @@
 package zookeeper
 
 import (
-	"github.com/samuel/go-zookeeper/zk"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/samuel/go-zookeeper/zk"
 )
 
 type ZK struct {

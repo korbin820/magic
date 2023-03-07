@@ -15,6 +15,17 @@ func main() {
 
 	go cronjob.Demo()
 
+	fmt.Println(zookeeper.NewManager().Get("/config/test"))
+	/**
+	for {
+		select {
+		case <-time.After(3 * time.Second):
+			{
+				fmt.Println(zookeeper.Get123("/test"))
+			}
+		}
+	}**/
+
 	fmt.Println("=========================== Application is starting ================== ")
 	app.UseBizServer(server.Config{
 		Port: 8080,
